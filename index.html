@@ -7,391 +7,292 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
         /* === VARIABLES BASE === */
         :root {
-            /* Variables por defecto (Inicio/Gold) */
             --bg-color: #050505;
             --card-bg: #111;
             --text-color: #fff;
             --text-secondary: #aaa;
-            
-            /* Gradiente Dorado por defecto */
             --accent-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --accent-color: #d4af37; 
-            
             --border-color: #333;
             --font-titulos: 'Cinzel', serif;
             --font-texto: 'Montserrat', sans-serif;
-            
             --shadow-card: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* === TEMAS DE COLECCIONES === */
-        body.theme-silver {
-            --bg-color: #000000;
-            --card-bg: #0f0f0f;
-            --accent-gradient: linear-gradient(135deg, #7f8c8d, #ecf0f1, #bdc3c7, #95a5a6);
-            --accent-color: #bdc3c7;
-            --border-color: #333;
-        }
+        /* TEMAS */
+        body.theme-silver { --bg-color: #000000; --card-bg: #0f0f0f; --accent-gradient: linear-gradient(135deg, #7f8c8d, #ecf0f1, #bdc3c7, #95a5a6); --accent-color: #bdc3c7; }
+        body.theme-gold { --bg-color: #080808; --card-bg: #141414; }
+        body.theme-diamante { --bg-color: #020c1b; --card-bg: #0a192f; --accent-gradient: linear-gradient(135deg, #00c6ff, #0072ff, #00c6ff); --accent-color: #00b4db; --text-color: #e6f1ff; }
+        body.theme-mevak { --bg-color: #1a0505; --card-bg: #2b0a0a; --accent-gradient: linear-gradient(135deg, #cb2d3e, #ef473a, #ff0033); --accent-color: #e74c3c; --text-color: #fff0f0; }
 
-        body.theme-gold {
-            --bg-color: #080808;
-            --card-bg: #141414;
-        }
-
-        body.theme-diamante {
-            --bg-color: #020c1b;
-            --card-bg: #0a192f;
-            --accent-gradient: linear-gradient(135deg, #00c6ff, #0072ff, #00c6ff);
-            --accent-color: #00b4db;
-            --text-color: #e6f1ff;
-            --border-color: #112240;
-        }
-
-        body.theme-mevak {
-            --bg-color: #1a0505;
-            --card-bg: #2b0a0a;
-            --accent-gradient: linear-gradient(135deg, #cb2d3e, #ef473a, #ff0033);
-            --accent-color: #e74c3c;
-            --text-color: #fff0f0;
-            --border-color: #4a1c1c;
-        }
-
-        /* === ESTILOS GENERALES === */
         body { 
-            margin: 0; 
-            font-family: var(--font-texto); 
-            background-color: var(--bg-color); 
-            color: var(--text-color); 
-            padding-bottom: 80px; 
-            transition: background-color 0.8s ease, color 0.5s ease;
+            margin: 0; font-family: var(--font-texto); background-color: var(--bg-color); color: var(--text-color); 
+            padding-bottom: 80px; transition: background-color 0.8s ease;
         }
-        
-        /* Corrección Netlify */
+
+        /* UTILIDADES */
         .text-gradient {
-            background-image: var(--accent-gradient);
-            background-size: 100%;
-            background-repeat: repeat;
-            color: transparent;
-            -webkit-text-fill-color: transparent;
-            -moz-background-clip: text;
-            -webkit-background-clip: text;
-            background-clip: text;
-            display: inline-block;
-            font-weight: 600;
+            background-image: var(--accent-gradient); background-size: 100%; -webkit-background-clip: text;
+            background-clip: text; color: transparent; -webkit-text-fill-color: transparent; display: inline-block; font-weight: 600;
         }
 
         /* === NAVEGACIÓN === */
         nav { 
-            background: rgba(0,0,0,0.95); 
-            padding: 15px 0; 
-            position: sticky; top: 0; 
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000; 
+            background: rgba(0,0,0,0.95); padding: 15px 0; position: sticky; top: 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 1000; 
             display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
-
         .logo { 
-            font-family: var(--font-titulos); 
-            font-size: 2.2rem; 
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            cursor: pointer;
-            background-image: var(--accent-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent; 
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            margin-bottom: 5px;
+            font-family: var(--font-titulos); font-size: 2.2rem; letter-spacing: 4px; text-transform: uppercase; cursor: pointer;
+            background-image: var(--accent-gradient); -webkit-background-clip: text; background-clip: text; color: transparent;
         }
-
-        /* Botón Móvil (Dropdown Trigger) */
         .mobile-menu-btn {
-            display: none; /* Oculto en escritorio */
-            background: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--text-color);
-            padding: 10px 20px;
-            font-family: var(--font-texto);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            width: 80%;
-            max-width: 300px;
-            text-align: center;
-            transition: 0.3s;
+            display: none; background: transparent; border: 1px solid var(--accent-color); color: var(--text-color);
+            padding: 10px 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; cursor: pointer;
         }
-
-        .menu { 
-            display: flex; gap: 20px; 
-            justify-content: center; 
-            width: 100%;
-        }
-
+        .menu { display: flex; gap: 15px; justify-content: center; width: 100%; flex-wrap: wrap;}
         .menu a { 
-            text-decoration: none; 
-            color: var(--text-secondary); 
-            font-size: 0.8rem; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            padding: 8px 15px; 
-            transition: all 0.4s ease;
-            position: relative;
-            cursor: pointer;
+            text-decoration: none; color: var(--text-secondary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
+            padding: 8px 10px; cursor: pointer; position: relative; transition: 0.4s; font-weight: 500;
         }
+        .menu a:hover, .menu a.active { color: white; text-shadow: 0 0 10px var(--accent-color); }
+        .menu a.active::after { content: ''; position: absolute; bottom: 0; left: 10%; width: 80%; height: 1px; background: var(--accent-gradient); }
 
-        .menu a:hover, .menu a.active { 
-            color: white;
-            text-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .menu a.active::after {
-            content: ''; position: absolute; bottom: 0; left: 10%; width: 80%; height: 1px;
-            background: var(--accent-gradient);
-        }
-
-        /* === LOGICA DE MENÚ MÓVIL === */
         @media (max-width: 768px) {
-            .mobile-menu-btn { display: block; } /* Mostrar botón */
-            
-            .menu {
-                display: none; /* Ocultar lista normal */
-                flex-direction: column;
-                position: absolute;
-                top: 100%; /* Justo debajo del nav */
-                left: 0;
-                width: 100%;
-                background: var(--bg-color); /* Fondo del tema actual */
-                border-bottom: 1px solid var(--accent-color);
-                padding: 0;
-                gap: 0;
-                animation: slideDown 0.3s ease forwards;
-            }
-
+            .mobile-menu-btn { display: block; }
+            .menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; background: var(--bg-color); border-bottom: 1px solid var(--accent-color); gap: 0; padding: 0;}
             .menu.show-mobile { display: flex; }
-
-            .menu a {
-                padding: 20px;
-                border-bottom: 1px solid rgba(255,255,255,0.05);
-                text-align: center;
-                font-size: 0.9rem;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .menu a.active::after { display: none; } /* Sin subrayado en móvil */
-            .menu a.active { background: rgba(255,255,255,0.05); color: var(--accent-color); }
+            .menu a { padding: 15px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); width: 100%; box-sizing: border-box;}
         }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* === CARRUSEL BANNER PRINCIPAL === */
+        .carousel-wrapper {
+            position: relative; width: 100%; height: 60vh; min-height: 400px;
+            overflow: hidden; background: #000;
+        }
+        .carousel-track { display: flex; width: 100%; height: 100%; transition: transform 0.5s ease-in-out; }
+        .carousel-slide { min-width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;}
+        .slide-bg {
+            position: absolute; top:0; left:0; width: 100%; height: 100%;
+            background-size: cover; background-position: center; opacity: 0.3; filter: blur(20px); z-index: 1;
+        }
+        .slide-img-content {
+            position: relative; z-index: 2; height: 90%; width: 90%; max-width: 1200px;
+            object-fit: contain; box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        }
+        .carousel-nav-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.3); border: none; color: #fff; padding: 20px 10px; 
+            font-size: 2rem; cursor: pointer; z-index: 10; transition: 0.3s;
+        }
+        .carousel-nav-btn:hover { background: rgba(0,0,0,0.8); color: var(--accent-color); }
+        .prev-btn { left: 0; }
+        .next-btn { right: 0; }
+
+        /* === SECCIÓN BOMBA (OFERTA) TIPO CARRUSEL === */
+        #bomba-section {
+            background: #110000; border-top: 2px solid red; border-bottom: 2px solid red;
+            padding: 40px 20px; margin: 40px 0; display: none; position: relative; overflow: hidden;
+        }
+        .bomba-carousel-track { display: flex; transition: transform 0.5s ease-in-out; width: 100%; }
+        .bomba-slide { min-width: 100%; display: flex; flex-direction: column; gap: 30px; position: relative; z-index: 2; }
+        @media(min-width:768px){ .bomba-slide { flex-direction: row; align-items: center; justify-content: center;} }
+        
+        .bomba-info { flex: 1; text-align: center; max-width: 500px; margin: 0 auto; }
+        .bomba-img { flex: 1; max-width: 400px; margin: 0 auto; position:relative; }
+        .bomba-img img { width: 100%; border-radius: 10px; border: 2px solid red; box-shadow: 0 0 20px red; }
+
+        .bomba-title { font-family: var(--font-titulos); font-size: 2.5rem; color: #ff4d4d; margin: 0; text-transform: uppercase; animation: pulse 1s infinite; }
+        .bomba-timer { font-family: 'Courier New', monospace; font-size: 3rem; font-weight: bold; color: #fff; margin: 20px 0; text-shadow: 0 0 10px red; }
+        
+        .bomba-nav {
+            position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; box-sizing: border-box; pointer-events: none; z-index: 10;
+        }
+        .bomba-btn { 
+            pointer-events: auto; background: rgba(255,0,0,0.2); border: 1px solid red; color: white; padding: 10px; cursor: pointer; border-radius: 50%; font-size: 1.2rem;
         }
 
-        /* === CONTENEDOR === */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        /* Mecha */
+        .fuse-wrapper { width: 100%; height: 10px; background: #330000; border-radius: 5px; margin: 20px 0; position: relative; overflow: visible; }
+        .fuse-bar { height: 100%; background: #ff4d4d; width: 100%; position: relative; transition: width 1s linear; border-radius: 5px; }
+        .fuse-spark { position: absolute; right: -10px; top: -15px; width: 30px; height: 30px; background: radial-gradient(circle, yellow, orange, transparent); border-radius: 50%; animation: spark-spin 0.2s infinite linear, spark-flicker 0.1s infinite alternate; box-shadow: 0 0 20px orange; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.8; text-shadow: 0 0 30px red; } 100% { opacity: 1; } }
+        @keyframes spark-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes spark-flicker { 0% { opacity: 0.8; scale: 1; } 100% { opacity: 1; scale: 1.2; } }
 
-        .hero { text-align: center; margin-bottom: 50px; }
-        .hero h1 { 
-            font-family: var(--font-titulos); 
-            font-size: 2.5rem; margin: 0; 
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        /* === NUEVA SECCIÓN: REDES SOCIALES === */
+        #social-section {
+            display: none; /* Se activa en JS */
+            flex-direction: column; align-items: center; gap: 20px;
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.05);
+            border-top: 1px solid var(--border-color);
+            margin-bottom: 20px;
         }
-        .hero p { color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px; text-transform: uppercase; letter-spacing: 3px; }
+        @media(min-width: 768px) { #social-section { flex-direction: row; justify-content: center; gap: 50px; } }
+
+        .social-btn {
+            display: flex; align-items: center; gap: 15px;
+            background: transparent; color: var(--text-color);
+            border: 1px solid var(--accent-color);
+            padding: 15px 30px; text-transform: uppercase; letter-spacing: 2px;
+            text-decoration: none; transition: 0.3s; width: 80%; max-width: 300px; justify-content: center;
+        }
+        .social-btn:hover { background: var(--accent-gradient); color: #000; font-weight: bold; transform: scale(1.05); }
+
+        /* === NUEVA SECCIÓN: SUBMENÚS VISUALES === */
+        #categories-nav {
+            display: none; /* Se activa en JS */
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px; padding: 0 20px; max-width: 1200px; margin: 0 auto 40px auto;
+        }
+        .cat-card {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            padding: 20px 10px; text-align: center; cursor: pointer; transition: 0.3s;
+        }
+        .cat-card:hover { border-color: var(--accent-color); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); transform: translateY(-3px); }
+        .cat-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+        .cat-name { font-family: var(--font-titulos); font-size: 0.9rem; color: var(--text-color); }
 
         /* === GRID PRODUCTOS === */
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-            gap: 30px; 
-        }
-        @media (max-width: 600px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } }
-
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero h1 { font-family: var(--font-titulos); font-size: 2.5rem; margin: 0; letter-spacing: 2px; text-transform: uppercase; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
         .card { 
-            background: var(--card-bg); 
-            border: 1px solid var(--border-color); 
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            display: flex; flex-direction: column;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            background: var(--card-bg); border: 1px solid var(--border-color); cursor: pointer; position: relative;
+            transition: transform 0.4s; overflow: hidden; display: flex; flex-direction: column;
         }
-        
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: var(--accent-gradient);
-            transform: scaleX(0); transition: transform 0.4s;
-        }
-        .card:hover::before { transform: scaleX(1); }
         .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card); }
-        
-        .card-img-container { 
-            width: 100%; aspect-ratio: 1 / 1.1; overflow: hidden; 
-            background: #000;
-        }
+        .card-img-container { width: 100%; aspect-ratio: 1 / 1.1; overflow: hidden; background: #000; position: relative; }
         .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; opacity: 0.9;}
         .card:hover img { transform: scale(1.1); opacity: 1; }
-
-        .card-info { padding: 20px 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         
-        .card-category { font-size: 0.65rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; opacity: 0.8;}
-        
-        .card h3 { 
-            margin: 0 0 10px 0; 
-            font-family: var(--font-titulos); 
-            font-size: 1rem; 
-            font-weight: 400; 
-            color: var(--text-color);
-        }
-
-        .price-container { margin-bottom: 15px; }
-        .price-old { text-decoration: line-through; color: var(--text-secondary); font-size: 0.85rem; margin-right: 8px;}
+        .badge-offer { position: absolute; top: 10px; right: 10px; background: red; color: white; padding: 5px 10px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; border-radius: 4px; z-index: 5; }
+        .card-info { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;}
+        .card h3 { margin: 10px 0; font-family: var(--font-titulos); font-size: 1rem; color: var(--text-color); }
         .price-current { font-weight: 500; color: var(--text-color); font-size: 1.1rem; }
+        button.btn-add { width: 100%; background: transparent; color: var(--text-color); border: 1px solid var(--border-color); padding: 10px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; transition: 0.3s; }
+        button.btn-add:hover { background: var(--accent-gradient); border-color: transparent; color: #000; font-weight: bold; }
 
-        button.btn-add { 
-            width: 100%;
-            background: transparent; 
-            color: var(--text-color); 
-            border: 1px solid var(--border-color); 
-            padding: 12px 0; 
-            font-size: 0.75rem; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        button.btn-add:hover { 
-            background: var(--accent-gradient); 
-            border-color: transparent;
-            color: #000; 
-            font-weight: bold;
-        }
-
-        /* === ELEMENTOS UI === */
-        #cart-counter { 
-            position: fixed; bottom: 30px; right: 30px; 
-            background: var(--card-bg);
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color); 
-            width: 60px; height: 60px; border-radius: 50%; 
-            cursor: pointer; z-index: 900; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.5); 
-            display: flex; justify-content: center; align-items: center;
-        }
-
-        .modal-overlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); z-index: 2000; 
-            justify-content: center; align-items: center; backdrop-filter: blur(5px); 
-        }
-
-        .modal-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            width: 90%; max-width: 500px; max-height: 90vh;
-            display: flex; flex-direction: column;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-        }
-
-        .close-modal-btn { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer; }
+        /* MODALES */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 30px; width: 90%; max-width: 500px; position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+        #cart-counter { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #000; border: 1px solid var(--accent-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 900; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
         
-        .btn-whatsapp { 
-            background: var(--accent-gradient); color: #000; border: none; padding: 15px; 
-            font-weight: bold; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; width: 100%; margin-top: 20px;
-        }
-
-        /* Detalle Producto */
-        .detail-box { max-width: 1000px; height: 80vh; flex-direction: row; border: 1px solid var(--border-color);}
-        .detail-layout { display: flex; flex-direction: column; width: 100%; height: 100%; }
-        @media (min-width: 768px) { .detail-layout { flex-direction: row; } }
-        
-        .detail-img-area { flex: 1.2; background: #000; }
+        /* Detalle */
+        .detail-box { max-width: 1000px; height: 80vh; display: flex; padding: 0; overflow: hidden; flex-direction: column;}
+        @media(min-width: 768px) { .detail-box { flex-direction: row; } }
+        .detail-img-area { flex: 1; background: #000; }
         .detail-img-area img { width: 100%; height: 100%; object-fit: contain; }
-        
-        .detail-info-area { flex: 0.8; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; justify-content: center;}
-        
-        #detail-category { color: var(--accent-color); letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; display: block; margin-bottom: 10px; }
-        #detail-title { font-family: var(--font-titulos); font-size: 2rem; margin: 0 0 20px 0; line-height: 1.1; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;}
-        #detail-description { color: var(--text-secondary); line-height: 1.8; margin-bottom: 30px; font-weight: 300;}
-
-        #detail-add-btn { 
-            background: transparent; color: var(--text-color); border: 1px solid var(--accent-color); 
-            padding: 15px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s;
-        }
-        #detail-add-btn:hover { background: var(--accent-color); color: #000; font-weight: bold; box-shadow: 0 0 20px var(--accent-color); }
+        .detail-info-area { flex: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; }
 
     </style>
 </head>
 <body class="theme-gold"> 
     <nav>
         <div class="logo" onclick="location.reload()">MEVAK</div>
-        
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">Explorar Colecciones ▾</button>
+        <button class="mobile-menu-btn" onclick="document.getElementById('nav-menu').classList.toggle('show-mobile')">Menú ▾</button>
         
         <div class="menu" id="nav-menu">
-            <a onclick="filtrar('silver', this)">Silver Edition</a>
-            <a onclick="filtrar('gold', this)" class="active">Gold Edition</a>
-            <a onclick="filtrar('diamante', this)">Diamante</a>
-            <a onclick="filtrar('mevak', this)">Mevak Exclusive</a>
+            <a onclick="irA('principal', this)" class="active">Principal</a>
+            <a onclick="irA('ofertas', this)" style="color:#ff4d4d; font-weight:bold;">🔥 Ofertas</a>
+            <a onclick="irA('silver', this)">Silver Edition</a>
+            <a onclick="irA('gold', this)">Gold Edition</a>
+            <a onclick="irA('diamante', this)">Diamond Edition</a>
+            <a onclick="irA('mevak', this)">Mevak Edition</a>
         </div>
     </nav>
 
+    <div id="carousel-section" class="carousel-wrapper" style="display:none;">
+        <div class="carousel-track" id="carousel-track"></div>
+        <button class="carousel-nav-btn prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="carousel-nav-btn next-btn" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+
+    <div id="bomba-section">
+        <div class="bomba-nav">
+            <button class="bomba-btn" onclick="moveBombaSlide(-1)">&#10094;</button>
+            <button class="bomba-btn" onclick="moveBombaSlide(1)">&#10095;</button>
+        </div>
+        <div class="bomba-carousel-track" id="bomba-track"></div>
+    </div>
+
+    <div id="social-section">
+        <a href="https://wa.me/5493874524535" target="_blank" class="social-btn">
+            <span style="font-size:1.5rem">💬</span> WhatsApp
+        </a>
+        <a href="https://instagram.com" target="_blank" class="social-btn">
+            <span style="font-size:1.5rem">📸</span> Instagram
+        </a>
+    </div>
+
+    <div id="categories-nav">
+        <div class="cat-card" onclick="irA('ofertas', document.querySelectorAll('.menu a')[1])">
+            <span class="cat-icon">🔥</span>
+            <span class="cat-name">OFERTAS</span>
+        </div>
+        <div class="cat-card" onclick="irA('silver', document.querySelectorAll('.menu a')[2])">
+            <span class="cat-icon">⛓️</span>
+            <span class="cat-name">SILVER</span>
+        </div>
+        <div class="cat-card" onclick="irA('gold', document.querySelectorAll('.menu a')[3])">
+            <span class="cat-icon">⚜️</span>
+            <span class="cat-name">GOLD</span>
+        </div>
+        <div class="cat-card" onclick="irA('diamante', document.querySelectorAll('.menu a')[4])">
+            <span class="cat-icon">💎</span>
+            <span class="cat-name">DIAMANTE</span>
+        </div>
+        <div class="cat-card" onclick="irA('mevak', document.querySelectorAll('.menu a')[5])">
+            <span class="cat-icon">👑</span>
+            <span class="cat-name">MEVAK</span>
+        </div>
+    </div>
+
     <div class="container">
         <div class="hero">
-            <h1 id="titulo-seccion" class="text-gradient">Gold Edition</h1>
-            <p id="subtitulo-seccion">El estándar de la elegancia</p>
+            <h1 id="titulo-seccion" class="text-gradient">Catálogo Completo</h1>
+            <p id="subtitulo-seccion" style="color:var(--text-secondary); letter-spacing:3px; text-transform:uppercase;">Explora todo nuestro universo</p>
         </div>
-        
-        <div id="loading" style="text-align: center; color: var(--text-secondary); padding: 50px;">Abriendo la bóveda...</div>
         <div class="grid" id="contenedor-productos"></div>
     </div>
 
     <div id="cart-counter" onclick="toggleCart()">
-        <span style="font-size:1.2rem">💎</span> <span id="cart-count" style="margin-left:5px; font-weight:bold; font-size:0.9rem;">0</span>
+        <span style="font-size:1.2rem">💎</span> <span id="cart-count" style="margin-left:5px; font-weight:bold; color:var(--accent-color)">0</span>
     </div>
 
-    <div id="cart-modal" class="modal-overlay" onclick="closeModalOnClickOutside(event, 'cart-modal')">
-        <div class="modal-box" style="padding: 30px; position:relative;">
-            <span class="close-modal-btn" onclick="toggleCart()">✕</span>
-            <div style="font-family: var(--font-titulos); font-size: 1.8rem; margin-bottom: 20px; text-align: center; border-bottom:1px solid var(--border-color); padding-bottom:15px;">Tu Selección</div>
-            <div id="cart-items" style="flex-grow: 1; overflow-y: auto; max-height: 300px;"></div>
-            <div style="margin-top: 25px; font-size: 1.1rem; text-align: right; border-top: 1px solid var(--border-color); padding-top: 15px;">
-                Total: <strong class="text-gradient">$<span id="cart-total">0</span></strong>
-            </div>
-            <button class="btn-whatsapp" onclick="enviarWhatsApp()">Consultar Disponibilidad</button>
+    <div id="cart-modal" class="modal-overlay" onclick="if(event.target.id=='cart-modal') this.style.display='none'">
+        <div class="modal-box">
+            <h2 style="font-family: var(--font-titulos); text-align:center;">Tu Selección</h2>
+            <div id="cart-items" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;"></div>
+            <div style="text-align: right; border-top: 1px solid #333; padding-top: 10px;">Total: $<span id="cart-total">0</span></div>
+            <button onclick="enviarWhatsApp()" style="width:100%; padding:15px; background:var(--accent-gradient); border:none; margin-top:15px; font-weight:bold; cursor:pointer;">CONSULTAR DISPONIBILIDAD</button>
         </div>
     </div>
 
-    <div id="detail-modal" class="modal-overlay" onclick="closeModalOnClickOutside(event, 'detail-modal')">
+    <div id="detail-modal" class="modal-overlay" onclick="if(event.target.id=='detail-modal') this.style.display='none'">
         <div class="modal-box detail-box">
-            <span class="close-modal-btn" onclick="cerrarDetalle()" style="z-index:10; background:rgba(0,0,0,0.5); padding:5px 10px; border-radius:50%;">✕</span>
-            <div class="detail-layout">
-                <div class="detail-img-area">
-                    <img id="detail-img" src="" alt="Joya">
-                </div>
-                <div class="detail-info-area">
-                    <span id="detail-category"></span>
-                    <h2 id="detail-title"></h2>
-                    <div id="detail-price-box" style="font-size: 1.8rem; margin-bottom: 20px;"></div>
-                    <div id="detail-description"></div>
-                    <button id="detail-add-btn">Añadir a la selección</button>
-                </div>
+            <div class="detail-img-area"><img id="detail-img" src=""></div>
+            <div class="detail-info-area">
+                <span id="detail-category" style="color:var(--accent-color); text-transform:uppercase; letter-spacing:2px;"></span>
+                <h2 id="detail-title" style="font-family: var(--font-titulos); font-size: 2rem; margin: 10px 0;"></h2>
+                <div id="detail-price" style="font-size: 1.5rem; margin-bottom: 20px;"></div>
+                <p id="detail-desc" style="color:#ccc; line-height:1.6;"></p>
+                <button id="detail-btn" style="padding:15px; background:transparent; border:1px solid var(--accent-color); color:#fff; cursor:pointer; text-transform:uppercase;">Agregar a la selección</button>
             </div>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // TUS CREDENCIALES
         const firebaseConfig = {
             apiKey: "AIzaSyCptCFdvkbSWpV7pcLR8pd5eZCIw0kepmw",
             authDomain: "pyme-23c21.firebaseapp.com",
@@ -406,170 +307,298 @@
 
         let todosLosProductos = [];
         let carrito = JSON.parse(localStorage.getItem('carrito_mevak')) || []; 
+        let currentSlide = 0;
+        let banners = [];
+        
+        let activeBombas = [];
+        let currentBombaIndex = 0;
+        let bombaTimerInterval = null;
+        let bombaCarouselInterval = null;
+        let currentSection = 'principal';
 
-        // FUNCION MENÚ MOVIL
-        window.toggleMobileMenu = function() {
-            const menu = document.getElementById('nav-menu');
-            menu.classList.toggle('show-mobile');
+        // --- CARRUSEL BANNER PRINCIPAL ---
+        async function initCarousel() {
+            try {
+                const docSnap = await getDoc(doc(db, "config", "banners"));
+                if(docSnap.exists()) {
+                    banners = (docSnap.data().urls || []).filter(u => u.trim() !== "");
+                    if(banners.length > 0) {
+                        const track = document.getElementById('carousel-track');
+                        track.innerHTML = "";
+                        banners.forEach(url => {
+                            track.innerHTML += `<div class="carousel-slide"><div class="slide-bg" style="background-image: url('${url}');"></div><img src="${url}" class="slide-img-content"></div>`;
+                        });
+                        document.getElementById('carousel-section').style.display = 'block';
+                        setInterval(() => moveSlide(1), 5000);
+                    }
+                }
+            } catch(e) { console.log("No banners"); }
         }
 
-        window.filtrar = function(categoria, elemento) {
-            // 1. Activar clase en menú
-            document.querySelectorAll('.menu a').forEach(el => el.classList.remove('active'));
-            if(elemento) elemento.classList.add('active');
-
-            // 2. Cerrar menú móvil si está abierto y actualizar texto botón
-            document.getElementById('nav-menu').classList.remove('show-mobile');
-            const btnMovil = document.querySelector('.mobile-menu-btn');
-            
-            // 3. Textos y Temas
-            const info = {
-                'silver': { t: 'Silver Collection', s: 'Minimalismo puro y atemporal' },
-                'gold': { t: 'Gold Edition', s: 'El brillo eterno del éxito' },
-                'diamante': { t: 'Diamante & Zafiros', s: 'Profundidad azul y destellos eternos' },
-                'mevak': { t: 'Mevak Exclusive', s: 'Pasión rubí. Solo para elegidos.' }
-            };
-
-            const datos = info[categoria] || { t: 'Colección', s: '' };
-            document.getElementById('titulo-seccion').innerText = datos.t;
-            document.getElementById('subtitulo-seccion').innerText = datos.s;
-            
-            // Actualizar texto del botón móvil para saber dónde estamos
-            btnMovil.innerText = "Viendo: " + (datos.t.split(' ')[0]) + " ▾";
-
-            // 4. CAMBIO DE TEMA
-            document.body.className = ''; 
-            document.body.classList.add('theme-' + categoria); 
-
-            // 5. Filtrar Productos
-            const filtrados = todosLosProductos.filter(prod => prod.categoria === categoria);
-            mostrarProductos(filtrados);
+        window.moveSlide = function(step) {
+            if(banners.length === 0) return;
+            currentSlide += step;
+            if(currentSlide >= banners.length) currentSlide = 0;
+            if(currentSlide < 0) currentSlide = banners.length - 1;
+            document.getElementById('carousel-track').style.transform = `translateX(-${currentSlide * 100}%)`;
         }
 
-        function mostrarProductos(lista) {
-            const contenedor = document.getElementById('contenedor-productos');
-            contenedor.innerHTML = ""; 
+        // --- LOGICA BOMBA CARRUSEL + TIMER ---
+        function initBombaSystem() {
+            const now = new Date();
+            activeBombas = todosLosProductos.filter(p => 
+                p.ofertaBomba === true && 
+                p.fechaFinOferta && 
+                new Date(p.fechaFinOferta) > now
+            );
 
-            if(lista.length === 0) {
-                contenedor.innerHTML = "<p style='grid-column: 1/-1; text-align:center; padding:40px; color:var(--text-secondary);'>Colección próximamente disponible.</p>";
-                return;
+            const shouldShow = activeBombas.length > 0 && (currentSection === 'principal' || currentSection === 'ofertas');
+            const bombaSection = document.getElementById('bomba-section');
+
+            if (shouldShow) {
+                bombaSection.style.display = 'block';
+                renderBombaSlides();
+                startBombaCarousel();
+            } else {
+                bombaSection.style.display = 'none';
+                clearInterval(bombaTimerInterval);
+                clearInterval(bombaCarouselInterval);
             }
+        }
 
-            lista.forEach((item) => {
-                const indexGlobal = todosLosProductos.findIndex(p => p.id === item.id);
-                
-                let precioHTML = item.precioOriginal && item.precioOriginal > item.precio 
-                    ? `<div class="price-container"><span class="price-old">$${item.precioOriginal}</span><span class="price-current">$${item.precio}</span></div>`
-                    : `<div class="price-container"><span class="price-current">$${item.precio}</span></div>`;
-
-                contenedor.innerHTML += `
-                    <div class="card" onclick="verDetalles(${indexGlobal})">
-                        <div class="card-img-container">
-                            <img src="${item.imagen}" alt="${item.nombre}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x400/111/555?text=MEVAK'">
+        function renderBombaSlides() {
+            const track = document.getElementById('bomba-track');
+            track.innerHTML = "";
+            activeBombas.forEach((p, index) => {
+                const globalIdx = todosLosProductos.findIndex(item => item.id === p.id);
+                track.innerHTML += `
+                    <div class="bomba-slide">
+                        <div class="bomba-img">
+                            <img src="${p.imagen}">
                         </div>
-                        <div class="card-info">
-                            <div>
-                                <span class="card-category">${item.categoria} edition</span>
-                                <h3>${item.nombre}</h3>
-                                ${precioHTML}
+                        <div class="bomba-info">
+                            <h2 class="bomba-title">💣 OFERTA RELÁMPAGO 💣</h2>
+                            <h3 style="color:white; margin:10px 0; font-family:var(--font-titulos);">${p.nombre}</h3>
+                            <div style="font-size:1.5rem; color:#ffcccc; margin-bottom:10px;">
+                                <span style="text-decoration:line-through; font-size:1rem;">$${p.precio}</span> 
+                                <span style="font-weight:bold; font-size:1.8rem;">$${p.precioBomba}</span>
                             </div>
-                            <button class="btn-add" onclick="event.stopPropagation(); agregarAlCarrito('${item.nombre}', ${item.precio}, this)">Ver Pieza</button>
+                            
+                            <div class="bomba-timer" id="timer-${index}">00:00:00</div>
+                            
+                            <div class="fuse-wrapper">
+                                <div class="fuse-bar" id="fuse-${index}"><div class="fuse-spark"></div></div>
+                            </div>
+
+                            <button onclick="verDetalle(${globalIdx})" style="background:red; color:white; border:none; padding:15px 30px; font-weight:bold; font-size:1.2rem; cursor:pointer; text-transform:uppercase; margin-top:20px;">¡Comprar Ahora!</button>
+                        </div>
+                    </div>
+                `;
+            });
+            updateBombaView();
+        }
+
+        function startBombaCarousel() {
+            clearInterval(bombaCarouselInterval);
+            if(activeBombas.length > 1) {
+                bombaCarouselInterval = setInterval(() => moveBombaSlide(1), 8000); 
+            }
+        }
+
+        window.moveBombaSlide = function(step) {
+            currentBombaIndex += step;
+            if(currentBombaIndex >= activeBombas.length) currentBombaIndex = 0;
+            if(currentBombaIndex < 0) currentBombaIndex = activeBombas.length - 1;
+            updateBombaView();
+            startBombaCarousel();
+        }
+
+        function updateBombaView() {
+            document.getElementById('bomba-track').style.transform = `translateX(-${currentBombaIndex * 100}%)`;
+            clearInterval(bombaTimerInterval);
+            const currentProduct = activeBombas[currentBombaIndex];
+            if(currentProduct) startTimerForProduct(currentProduct, currentBombaIndex);
+        }
+
+        function startTimerForProduct(product, indexDOM) {
+            const endTime = new Date(product.fechaFinOferta);
+            function update() {
+                const now = new Date();
+                const diff = endTime - now;
+                if(diff <= 0) {
+                    clearInterval(bombaTimerInterval);
+                    initBombaSystem(); 
+                    return;
+                }
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                const timerEl = document.getElementById(`timer-${indexDOM}`);
+                if(timerEl) timerEl.innerText = `${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+                
+                const totalSecondsIn24h = 24 * 60 * 60; 
+                let percent = ((diff / 1000) / totalSecondsIn24h) * 100;
+                if(percent > 100) percent = 100;
+                const fuseEl = document.getElementById(`fuse-${indexDOM}`);
+                if(fuseEl) fuseEl.style.width = percent + "%";
+            }
+            update();
+            bombaTimerInterval = setInterval(update, 1000);
+        }
+
+        // --- NAVEGACION ---
+        window.irA = function(seccion, elem) {
+            currentSection = seccion;
+            document.querySelectorAll('.menu a').forEach(el => el.classList.remove('active'));
+            if(elem) elem.classList.add('active');
+            document.getElementById('nav-menu').classList.remove('show-mobile');
+
+            // Control de Visibilidad de Secciones Especiales
+            const socialSec = document.getElementById('social-section');
+            const catNav = document.getElementById('categories-nav');
+            const carousel = document.getElementById('carousel-section');
+
+            // Refrescar Bombas
+            initBombaSystem();
+
+            if(seccion === 'principal') {
+                document.body.className = 'theme-gold'; 
+                document.getElementById('titulo-seccion').innerText = "Catálogo Completo";
+                document.getElementById('subtitulo-seccion').innerText = "Explora todo nuestro universo";
+                renderGrid(todosLosProductos);
+                
+                // Mostrar secciones de HOME
+                if(banners.length > 0) carousel.style.display = 'block';
+                socialSec.style.display = 'flex';
+                catNav.style.display = 'grid';
+            } 
+            else {
+                // Ocultar secciones de HOME en subpáginas
+                carousel.style.display = 'none';
+                socialSec.style.display = 'none';
+                catNav.style.display = 'none';
+
+                if(seccion === 'ofertas') {
+                    document.body.className = 'theme-mevak'; 
+                    document.getElementById('titulo-seccion').innerText = "🔥 Oportunidades 🔥";
+                    document.getElementById('subtitulo-seccion').innerText = "Precios especiales por tiempo limitado";
+                    const ofertas = todosLosProductos.filter(p => {
+                        const isBomba = p.ofertaBomba && new Date(p.fechaFinOferta) > new Date();
+                        return p.precioOriginal > p.precio || isBomba;
+                    });
+                    renderGrid(ofertas);
+                }
+                else {
+                    document.body.className = 'theme-' + seccion;
+                    const titulos = { 'silver': 'Silver Collection', 'gold': 'Gold Edition', 'diamante': 'Diamond Edition', 'mevak': 'Mevak Exclusive' };
+                    document.getElementById('titulo-seccion').innerText = titulos[seccion];
+                    document.getElementById('subtitulo-seccion').innerText = "Colección " + seccion;
+                    renderGrid(todosLosProductos.filter(p => p.categoria === seccion));
+                }
+            }
+        }
+
+        function renderGrid(lista) {
+            const cont = document.getElementById('contenedor-productos');
+            cont.innerHTML = "";
+            if(lista.length === 0) cont.innerHTML = "<p style='grid-column:1/-1; text-align:center; padding:50px;'>No hay piezas disponibles en esta sección.</p>";
+            
+            lista.forEach((p) => {
+                const globalIdx = todosLosProductos.findIndex(item => item.id === p.id);
+                const isBombaActive = p.ofertaBomba && p.fechaFinOferta && new Date(p.fechaFinOferta) > new Date();
+                
+                let displayPriceHtml = "";
+                let badge = "";
+
+                if (isBombaActive) {
+                    badge = `<div class="badge-offer">🔥 BOMBA</div>`;
+                    displayPriceHtml = `<span style="text-decoration:line-through; font-size:0.8rem; color:#666;">$${p.precio}</span> <span style="color:#d63031; font-weight:bold; font-size:1.2rem;">$${p.precioBomba}</span>`;
+                } else if (p.precioOriginal > p.precio) {
+                    badge = `<div class="badge-offer" style="background:var(--accent-color); color:black;">OFERTA</div>`;
+                    displayPriceHtml = `<span style="text-decoration:line-through; font-size:0.8rem; color:#666;">$${p.precioOriginal}</span> <span style="color:var(--text-color); font-weight:bold;">$${p.precio}</span>`;
+                } else {
+                    displayPriceHtml = `<span style="color:var(--text-color);">$${p.precio}</span>`;
+                }
+                
+                cont.innerHTML += `
+                    <div class="card" onclick="verDetalle(${globalIdx})">
+                        <div class="card-img-container">${badge}<img src="${p.imagen}" loading="lazy" onerror="this.src='https://via.placeholder.com/400'"></div>
+                        <div class="card-info">
+                            <span style="font-size:0.7rem; color:var(--accent-color); text-transform:uppercase;">${p.categoria}</span>
+                            <h3>${p.nombre}</h3>
+                            <div class="price-current">${displayPriceHtml}</div>
+                            <button class="btn-add">Ver Pieza</button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // --- FUNCIONES CARRITO Y DETALLE ---
-        
-        window.agregarAlCarrito = function(nombre, precio, btnElement) {
-            carrito.push({ nombre, precio });
-            localStorage.setItem('carrito_mevak', JSON.stringify(carrito));
-            actualizarInterfazCarrito();
-            
-            if(btnElement) {
-                const prevText = btnElement.innerText;
-                btnElement.innerText = "Guardado";
-                btnElement.style.borderColor = "var(--accent-color)";
-                setTimeout(() => btnElement.innerText = prevText, 1000);
-            }
-            if(document.getElementById('detail-modal').style.display === 'flex') setTimeout(cerrarDetalle, 500);
+        // --- CORE TIENDA ---
+        window.verDetalle = function(idx) {
+            const p = todosLosProductos[idx];
+            const isBombaActive = p.ofertaBomba && p.fechaFinOferta && new Date(p.fechaFinOferta) > new Date();
+            const precioFinal = isBombaActive ? p.precioBomba : p.precio;
+
+            document.getElementById('detail-img').src = p.imagen;
+            document.getElementById('detail-title').innerText = p.nombre;
+            document.getElementById('detail-category').innerText = p.categoria;
+            document.getElementById('detail-price').innerText = "$" + precioFinal;
+            document.getElementById('detail-desc').innerText = p.descripcion || "Sin descripción";
+            document.getElementById('detail-btn').onclick = () => agregar(p, precioFinal);
+            document.getElementById('detail-modal').style.display = 'flex';
         }
 
-        window.eliminarDelCarrito = function(index) {
-            carrito.splice(index, 1);
+        window.agregar = function(p, precioReal) {
+            const itemCarrito = { ...p, precio: precioReal };
+            carrito.push(itemCarrito);
             localStorage.setItem('carrito_mevak', JSON.stringify(carrito));
-            actualizarInterfazCarrito();
+            updateCart();
+            document.getElementById('detail-modal').style.display = 'none';
         }
 
         window.toggleCart = function() {
             const modal = document.getElementById('cart-modal');
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-            actualizarInterfazCarrito();
-        }
-
-        function actualizarInterfazCarrito() {
-            const cont = document.getElementById('cart-items');
-            document.getElementById('cart-count').innerText = carrito.length;
-            cont.innerHTML = "";
-            let total = 0;
-            
-            if(carrito.length === 0) cont.innerHTML = "<p style='text-align:center; color:var(--text-secondary);'>Tu selección está vacía.</p>";
-            
-            carrito.forEach((item, idx) => {
-                total += item.precio;
-                cont.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
-                        <div>
-                            <div style="color:var(--text-color); font-size:0.9rem;">${item.nombre}</div>
-                            <div style="color:var(--accent-color); font-size:0.8rem;">$${item.precio}</div>
-                        </div>
-                        <button onclick="eliminarDelCarrito(${idx})" style="background:none; border:none; color:var(--text-secondary); cursor:pointer;">✕</button>
-                    </div>`;
-            });
-            document.getElementById('cart-total').innerText = total;
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+            updateCart();
         }
 
         window.enviarWhatsApp = function() {
             if(carrito.length === 0) return;
-            const tel = "5493874524535"; 
-            let msg = "Hola Mevak, deseo adquirir estas piezas exclusivas:\n\n";
-            carrito.forEach(i => msg += `• ${i.nombre} ($${i.precio})\n`);
-            msg += `\nTotal: $${document.getElementById('cart-total').innerText}`;
-            window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, '_blank');
+            let msg = "Hola Mevak, me interesan estas piezas:\n";
+            let total = 0;
+            carrito.forEach(p => { msg += `- ${p.nombre} ($${p.precio})\n`; total += p.precio; });
+            msg += `\nTotal estimado: $${total}`;
+            window.open(`https://wa.me/5493874524535?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        window.verDetalles = function(index) {
-            const p = todosLosProductos[index];
-            document.getElementById('detail-img').src = p.imagen;
-            document.getElementById('detail-category').innerText = "Colección " + p.categoria;
-            document.getElementById('detail-title').innerText = p.nombre;
-            document.getElementById('detail-description').innerText = p.descripcion || "Sin descripción.";
-            document.getElementById('detail-price-box').innerHTML = `<span style="color:var(--accent-color)">$${p.precio}</span>`;
-            
-            document.getElementById('detail-add-btn').onclick = function() {
-                agregarAlCarrito(p.nombre, p.precio, this);
-            };
-            document.getElementById('detail-modal').style.display = 'flex';
+        function updateCart() {
+            document.getElementById('cart-count').innerText = carrito.length;
+            const list = document.getElementById('cart-items');
+            list.innerHTML = "";
+            let total = 0;
+            carrito.forEach((p, i) => {
+                total += p.precio;
+                list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:5px 0;"><span>${p.nombre}</span> <span>$${p.precio} <span onclick="carrito.splice(${i},1); localStorage.setItem('carrito_mevak', JSON.stringify(carrito)); updateCart()" style="cursor:pointer; color:red; margin-left:10px;">✕</span></span></div>`;
+            });
+            document.getElementById('cart-total').innerText = total;
         }
 
-        window.cerrarDetalle = function() { document.getElementById('detail-modal').style.display = 'none'; }
-        window.closeModalOnClickOutside = function(e, id) { if(e.target.id === id) document.getElementById(id).style.display = 'none'; }
-
-        // --- CARGA INICIAL ---
-        async function cargar() {
+        // INIT: Carga Principal por defecto
+        async function init() {
             try {
-                const qs = await getDocs(collection(db, "productos"));
+                const snap = await getDocs(collection(db, "productos"));
                 todosLosProductos = [];
-                qs.forEach(doc => todosLosProductos.push({ id: doc.id, ...doc.data() }));
-                document.getElementById('loading').style.display = 'none';
+                snap.forEach(d => todosLosProductos.push({id: d.id, ...d.data()}));
                 
-                // Cargar Gold por defecto al inicio
-                filtrar('gold', document.querySelectorAll('.menu a')[1]);
-                actualizarInterfazCarrito();
-            } catch (e) { console.error(e); }
+                // INICIAR EN PRINCIPAL
+                irA('principal', document.querySelectorAll('.menu a')[0]); 
+                
+                updateCart();
+                initCarousel();
+            } catch(e) { console.error(e); }
         }
-        cargar();
+        init();
     </script>
 </body>
 </html>
