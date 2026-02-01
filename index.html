@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mevak | Alta Joyería</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* === VARIABLES BASE === */
+        :root {
+            /* Variables por defecto (Inicio/Gold) */
+            --bg-color: #050505;
+            --card-bg: #111;
+            --text-color: #fff;
+            --text-secondary: #aaa;
+            
+            /* Gradiente Dorado por defecto */
+            --accent-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --accent-color: #d4af37; 
+            
+            --border-color: #333;
+            --font-titulos: 'Cinzel', serif;
+            --font-texto: 'Montserrat', sans-serif;
+            
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* === TEMAS DE COLECCIONES === */
+        body.theme-silver {
+            --bg-color: #000000;
+            --card-bg: #0f0f0f;
+            --accent-gradient: linear-gradient(135deg, #7f8c8d, #ecf0f1, #bdc3c7, #95a5a6);
+            --accent-color: #bdc3c7;
+            --border-color: #333;
+        }
+
+        body.theme-gold {
+            --bg-color: #080808;
+            --card-bg: #141414;
+        }
+
+        body.theme-diamante {
+            --bg-color: #020c1b;
+            --card-bg: #0a192f;
+            --accent-gradient: linear-gradient(135deg, #00c6ff, #0072ff, #00c6ff);
+            --accent-color: #00b4db;
+            --text-color: #e6f1ff;
+            --border-color: #112240;
+        }
+
+        body.theme-mevak {
+            --bg-color: #1a0505;
+            --card-bg: #2b0a0a;
+            --accent-gradient: linear-gradient(135deg, #cb2d3e, #ef473a, #ff0033);
+            --accent-color: #e74c3c;
+            --text-color: #fff0f0;
+            --border-color: #4a1c1c;
+        }
+
+        /* === ESTILOS GENERALES === */
+        body { 
+            margin: 0; 
+            font-family: var(--font-texto); 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            padding-bottom: 80px; 
+            transition: background-color 0.8s ease, color 0.5s ease;
+        }
+        
+        /* Corrección Netlify */
+        .text-gradient {
+            background-image: var(--accent-gradient);
+            background-size: 100%;
+            background-repeat: repeat;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            -moz-background-clip: text;
+            -webkit-background-clip: text;
+            background-clip: text;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        /* === NAVEGACIÓN === */
+        nav { 
+            background: rgba(0,0,0,0.95); 
+            padding: 15px 0; 
+            position: sticky; top: 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000; 
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+        }
+
+        .logo { 
+            font-family: var(--font-titulos); 
+            font-size: 2.2rem; 
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background-image: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent; 
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        /* Botón Móvil (Dropdown Trigger) */
+        .mobile-menu-btn {
+            display: none; /* Oculto en escritorio */
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--text-color);
+            padding: 10px 20px;
+            font-family: var(--font-texto);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .menu { 
+            display: flex; gap: 20px; 
+            justify-content: center; 
+            width: 100%;
+        }
+
+        .menu a { 
+            text-decoration: none; 
+            color: var(--text-secondary); 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            padding: 8px 15px; 
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .menu a:hover, .menu a.active { 
+            color: white;
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+        
+        .menu a.active::after {
+            content: ''; position: absolute; bottom: 0; left: 10%; width: 80%; height: 1px;
+            background: var(--accent-gradient);
+        }
+
+        /* === LOGICA DE MENÚ MÓVIL === */
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; } /* Mostrar botón */
+            
+            .menu {
+                display: none; /* Ocultar lista normal */
+                flex-direction: column;
+                position: absolute;
+                top: 100%; /* Justo debajo del nav */
+                left: 0;
+                width: 100%;
+                background: var(--bg-color); /* Fondo del tema actual */
+                border-bottom: 1px solid var(--accent-color);
+                padding: 0;
+                gap: 0;
+                animation: slideDown 0.3s ease forwards;
+            }
+
+            .menu.show-mobile { display: flex; }
+
+            .menu a {
+                padding: 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                text-align: center;
+                font-size: 0.9rem;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .menu a.active::after { display: none; } /* Sin subrayado en móvil */
+            .menu a.active { background: rgba(255,255,255,0.05); color: var(--accent-color); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === CONTENEDOR === */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+        .hero { text-align: center; margin-bottom: 50px; }
+        .hero h1 { 
+            font-family: var(--font-titulos); 
+            font-size: 2.5rem; margin: 0; 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .hero p { color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px; text-transform: uppercase; letter-spacing: 3px; }
+
+        /* === GRID PRODUCTOS === */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+            gap: 30px; 
+        }
+        @media (max-width: 600px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } }
+
+        .card { 
+            background: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex; flex-direction: column;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--accent-gradient);
+            transform: scaleX(0); transition: transform 0.4s;
+        }
+        .card:hover::before { transform: scaleX(1); }
+        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card); }
+        
+        .card-img-container { 
+            width: 100%; aspect-ratio: 1 / 1.1; overflow: hidden; 
+            background: #000;
+        }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; opacity: 0.9;}
+        .card:hover img { transform: scale(1.1); opacity: 1; }
+
+        .card-info { padding: 20px 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        
+        .card-category { font-size: 0.65rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; opacity: 0.8;}
+        
+        .card h3 { 
+            margin: 0 0 10px 0; 
+            font-family: var(--font-titulos); 
+            font-size: 1rem; 
+            font-weight: 400; 
+            color: var(--text-color);
+        }
+
+        .price-container { margin-bottom: 15px; }
+        .price-old { text-decoration: line-through; color: var(--text-secondary); font-size: 0.85rem; margin-right: 8px;}
+        .price-current { font-weight: 500; color: var(--text-color); font-size: 1.1rem; }
+
+        button.btn-add { 
+            width: 100%;
+            background: transparent; 
+            color: var(--text-color); 
+            border: 1px solid var(--border-color); 
+            padding: 12px 0; 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        button.btn-add:hover { 
+            background: var(--accent-gradient); 
+            border-color: transparent;
+            color: #000; 
+            font-weight: bold;
+        }
+
+        /* === ELEMENTOS UI === */
+        #cart-counter { 
+            position: fixed; bottom: 30px; right: 30px; 
+            background: var(--card-bg);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color); 
+            width: 60px; height: 60px; border-radius: 50%; 
+            cursor: pointer; z-index: 900; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.5); 
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .modal-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); z-index: 2000; 
+            justify-content: center; align-items: center; backdrop-filter: blur(5px); 
+        }
+
+        .modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            width: 90%; max-width: 500px; max-height: 90vh;
+            display: flex; flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        }
+
+        .close-modal-btn { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer; }
+        
+        .btn-whatsapp { 
+            background: var(--accent-gradient); color: #000; border: none; padding: 15px; 
+            font-weight: bold; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; width: 100%; margin-top: 20px;
+        }
+
+        /* Detalle Producto */
+        .detail-box { max-width: 1000px; height: 80vh; flex-direction: row; border: 1px solid var(--border-color);}
+        .detail-layout { display: flex; flex-direction: column; width: 100%; height: 100%; }
+        @media (min-width: 768px) { .detail-layout { flex-direction: row; } }
+        
+        .detail-img-area { flex: 1.2; background: #000; }
+        .detail-img-area img { width: 100%; height: 100%; object-fit: contain; }
+        
+        .detail-info-area { flex: 0.8; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; justify-content: center;}
+        
+        #detail-category { color: var(--accent-color); letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; display: block; margin-bottom: 10px; }
+        #detail-title { font-family: var(--font-titulos); font-size: 2rem; margin: 0 0 20px 0; line-height: 1.1; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;}
+        #detail-description { color: var(--text-secondary); line-height: 1.8; margin-bottom: 30px; font-weight: 300;}
+
+        #detail-add-btn { 
+            background: transparent; color: var(--text-color); border: 1px solid var(--accent-color); 
+            padding: 15px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s;
+        }
+        #detail-add-btn:hover { background: var(--accent-color); color: #000; font-weight: bold; box-shadow: 0 0 20px var(--accent-color); }
+
+    </style>
+</head>
+<body class="theme-gold"> 
+    <nav>
+        <div class="logo" onclick="location.reload()">MEVAK</div>
+        
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">Explorar Colecciones ▾</button>
+        
+        <div class="menu" id="nav-menu">
+            <a onclick="filtrar('silver', this)">Silver Edition</a>
+            <a onclick="filtrar('gold', this)" class="active">Gold Edition</a>
+            <a onclick="filtrar('diamante', this)">Diamante</a>
+            <a onclick="filtrar('mevak', this)">Mevak Exclusive</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1 id="titulo-seccion" class="text-gradient">Gold Edition</h1>
+            <p id="subtitulo-seccion">El estándar de la elegancia</p>
+        </div>
+        
+        <div id="loading" style="text-align: center; color: var(--text-secondary); padding: 50px;">Abriendo la bóveda...</div>
+        <div class="grid" id="contenedor-productos"></div>
+    </div>
+
+    <div id="cart-counter" onclick="toggleCart()">
+        <span style="font-size:1.2rem">💎</span> <span id="cart-count" style="margin-left:5px; font-weight:bold; font-size:0.9rem;">0</span>
+    </div>
+
+    <div id="cart-modal" class="modal-overlay" onclick="closeModalOnClickOutside(event, 'cart-modal')">
+        <div class="modal-box" style="padding: 30px; position:relative;">
+            <span class="close-modal-btn" onclick="toggleCart()">✕</span>
+            <div style="font-family: var(--font-titulos); font-size: 1.8rem; margin-bottom: 20px; text-align: center; border-bottom:1px solid var(--border-color); padding-bottom:15px;">Tu Selección</div>
+            <div id="cart-items" style="flex-grow: 1; overflow-y: auto; max-height: 300px;"></div>
+            <div style="margin-top: 25px; font-size: 1.1rem; text-align: right; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                Total: <strong class="text-gradient">$<span id="cart-total">0</span></strong>
+            </div>
+            <button class="btn-whatsapp" onclick="enviarWhatsApp()">Consultar Disponibilidad</button>
+        </div>
+    </div>
+
+    <div id="detail-modal" class="modal-overlay" onclick="closeModalOnClickOutside(event, 'detail-modal')">
+        <div class="modal-box detail-box">
+            <span class="close-modal-btn" onclick="cerrarDetalle()" style="z-index:10; background:rgba(0,0,0,0.5); padding:5px 10px; border-radius:50%;">✕</span>
+            <div class="detail-layout">
+                <div class="detail-img-area">
+                    <img id="detail-img" src="" alt="Joya">
+                </div>
+                <div class="detail-info-area">
+                    <span id="detail-category"></span>
+                    <h2 id="detail-title"></h2>
+                    <div id="detail-price-box" style="font-size: 1.8rem; margin-bottom: 20px;"></div>
+                    <div id="detail-description"></div>
+                    <button id="detail-add-btn">Añadir a la selección</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // TUS CREDENCIALES
+        const firebaseConfig = {
+            apiKey: "AIzaSyCptCFdvkbSWpV7pcLR8pd5eZCIw0kepmw",
+            authDomain: "pyme-23c21.firebaseapp.com",
+            projectId: "pyme-23c21",
+            storageBucket: "pyme-23c21.firebasestorage.app",
+            messagingSenderId: "99876617666",
+            appId: "1:99876617666:web:7958cfad5d6bc9919f6a5b"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let todosLosProductos = [];
+        let carrito = JSON.parse(localStorage.getItem('carrito_mevak')) || []; 
+
+        // FUNCION MENÚ MOVIL
+        window.toggleMobileMenu = function() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('show-mobile');
+        }
+
+        window.filtrar = function(categoria, elemento) {
+            // 1. Activar clase en menú
+            document.querySelectorAll('.menu a').forEach(el => el.classList.remove('active'));
+            if(elemento) elemento.classList.add('active');
+
+            // 2. Cerrar menú móvil si está abierto y actualizar texto botón
+            document.getElementById('nav-menu').classList.remove('show-mobile');
+            const btnMovil = document.querySelector('.mobile-menu-btn');
+            
+            // 3. Textos y Temas
+            const info = {
+                'silver': { t: 'Silver Collection', s: 'Minimalismo puro y atemporal' },
+                'gold': { t: 'Gold Edition', s: 'El brillo eterno del éxito' },
+                'diamante': { t: 'Diamante & Zafiros', s: 'Profundidad azul y destellos eternos' },
+                'mevak': { t: 'Mevak Exclusive', s: 'Pasión rubí. Solo para elegidos.' }
+            };
+
+            const datos = info[categoria] || { t: 'Colección', s: '' };
+            document.getElementById('titulo-seccion').innerText = datos.t;
+            document.getElementById('subtitulo-seccion').innerText = datos.s;
+            
+            // Actualizar texto del botón móvil para saber dónde estamos
+            btnMovil.innerText = "Viendo: " + (datos.t.split(' ')[0]) + " ▾";
+
+            // 4. CAMBIO DE TEMA
+            document.body.className = ''; 
+            document.body.classList.add('theme-' + categoria); 
+
+            // 5. Filtrar Productos
+            const filtrados = todosLosProductos.filter(prod => prod.categoria === categoria);
+            mostrarProductos(filtrados);
+        }
+
+        function mostrarProductos(lista) {
+            const contenedor = document.getElementById('contenedor-productos');
+            contenedor.innerHTML = ""; 
+
+            if(lista.length === 0) {
+                contenedor.innerHTML = "<p style='grid-column: 1/-1; text-align:center; padding:40px; color:var(--text-secondary);'>Colección próximamente disponible.</p>";
+                return;
+            }
+
+            lista.forEach((item) => {
+                const indexGlobal = todosLosProductos.findIndex(p => p.id === item.id);
+                
+                let precioHTML = item.precioOriginal && item.precioOriginal > item.precio 
+                    ? `<div class="price-container"><span class="price-old">$${item.precioOriginal}</span><span class="price-current">$${item.precio}</span></div>`
+                    : `<div class="price-container"><span class="price-current">$${item.precio}</span></div>`;
+
+                contenedor.innerHTML += `
+                    <div class="card" onclick="verDetalles(${indexGlobal})">
+                        <div class="card-img-container">
+                            <img src="${item.imagen}" alt="${item.nombre}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x400/111/555?text=MEVAK'">
+                        </div>
+                        <div class="card-info">
+                            <div>
+                                <span class="card-category">${item.categoria} edition</span>
+                                <h3>${item.nombre}</h3>
+                                ${precioHTML}
+                            </div>
+                            <button class="btn-add" onclick="event.stopPropagation(); agregarAlCarrito('${item.nombre}', ${item.precio}, this)">Ver Pieza</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // --- FUNCIONES CARRITO Y DETALLE ---
+        
+        window.agregarAlCarrito = function(nombre, precio, btnElement) {
+            carrito.push({ nombre, precio });
+            localStorage.setItem('carrito_mevak', JSON.stringify(carrito));
+            actualizarInterfazCarrito();
+            
+            if(btnElement) {
+                const prevText = btnElement.innerText;
+                btnElement.innerText = "Guardado";
+                btnElement.style.borderColor = "var(--accent-color)";
+                setTimeout(() => btnElement.innerText = prevText, 1000);
+            }
+            if(document.getElementById('detail-modal').style.display === 'flex') setTimeout(cerrarDetalle, 500);
+        }
+
+        window.eliminarDelCarrito = function(index) {
+            carrito.splice(index, 1);
+            localStorage.setItem('carrito_mevak', JSON.stringify(carrito));
+            actualizarInterfazCarrito();
+        }
+
+        window.toggleCart = function() {
+            const modal = document.getElementById('cart-modal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+            actualizarInterfazCarrito();
+        }
+
+        function actualizarInterfazCarrito() {
+            const cont = document.getElementById('cart-items');
+            document.getElementById('cart-count').innerText = carrito.length;
+            cont.innerHTML = "";
+            let total = 0;
+            
+            if(carrito.length === 0) cont.innerHTML = "<p style='text-align:center; color:var(--text-secondary);'>Tu selección está vacía.</p>";
+            
+            carrito.forEach((item, idx) => {
+                total += item.precio;
+                cont.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+                        <div>
+                            <div style="color:var(--text-color); font-size:0.9rem;">${item.nombre}</div>
+                            <div style="color:var(--accent-color); font-size:0.8rem;">$${item.precio}</div>
+                        </div>
+                        <button onclick="eliminarDelCarrito(${idx})" style="background:none; border:none; color:var(--text-secondary); cursor:pointer;">✕</button>
+                    </div>`;
+            });
+            document.getElementById('cart-total').innerText = total;
+        }
+
+        window.enviarWhatsApp = function() {
+            if(carrito.length === 0) return;
+            const tel = "5493874524535"; 
+            let msg = "Hola Mevak, deseo adquirir estas piezas exclusivas:\n\n";
+            carrito.forEach(i => msg += `• ${i.nombre} ($${i.precio})\n`);
+            msg += `\nTotal: $${document.getElementById('cart-total').innerText}`;
+            window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        window.verDetalles = function(index) {
+            const p = todosLosProductos[index];
+            document.getElementById('detail-img').src = p.imagen;
+            document.getElementById('detail-category').innerText = "Colección " + p.categoria;
+            document.getElementById('detail-title').innerText = p.nombre;
+            document.getElementById('detail-description').innerText = p.descripcion || "Sin descripción.";
+            document.getElementById('detail-price-box').innerHTML = `<span style="color:var(--accent-color)">$${p.precio}</span>`;
+            
+            document.getElementById('detail-add-btn').onclick = function() {
+                agregarAlCarrito(p.nombre, p.precio, this);
+            };
+            document.getElementById('detail-modal').style.display = 'flex';
+        }
+
+        window.cerrarDetalle = function() { document.getElementById('detail-modal').style.display = 'none'; }
+        window.closeModalOnClickOutside = function(e, id) { if(e.target.id === id) document.getElementById(id).style.display = 'none'; }
+
+        // --- CARGA INICIAL ---
+        async function cargar() {
+            try {
+                const qs = await getDocs(collection(db, "productos"));
+                todosLosProductos = [];
+                qs.forEach(doc => todosLosProductos.push({ id: doc.id, ...doc.data() }));
+                document.getElementById('loading').style.display = 'none';
+                
+                // Cargar Gold por defecto al inicio
+                filtrar('gold', document.querySelectorAll('.menu a')[1]);
+                actualizarInterfazCarrito();
+            } catch (e) { console.error(e); }
+        }
+        cargar();
+    </script>
+</body>
+</html>
