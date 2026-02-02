@@ -12,12 +12,12 @@
     <style>
         /* === VARIABLES BASE === */
         :root {
-            --bg-color: #050505;
+            --bg-color: #000000;
             --card-bg: #111;
             --text-color: #fff;
             --text-secondary: #aaa;
             --accent-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            --accent-color: #d4af37; 
+            --accent-color: #f3f3f3; 
             --border-color: #333;
             --font-titulos: 'Cinzel', serif;
             --font-texto: 'Montserrat', sans-serif;
@@ -43,7 +43,7 @@
 
         /* === NAVEGACIÓN === */
         nav { 
-            background: rgba(0,0,0,0.95); padding: 15px 0; position: sticky; top: 0; 
+            background: rgba(0, 0, 0, 0.95); padding: 15px 0; position: sticky; top: 0; 
             border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 1000; 
             display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
@@ -96,7 +96,7 @@
 
         /* === SECCIÓN BOMBA (OFERTA) TIPO CARRUSEL === */
         #bomba-section {
-            background: #110000; border-top: 2px solid red; border-bottom: 2px solid red;
+            background: #110000; border-top: 2px solid rgb(212, 175, 55); border-bottom: 2px solid rgb(212, 175, 55);
             padding: 40px 20px; margin: 40px 0; display: none; position: relative; overflow: hidden;
         }
         .bomba-carousel-track { display: flex; transition: transform 0.5s ease-in-out; width: 100%; }
@@ -105,25 +105,19 @@
         
         .bomba-info { flex: 1; text-align: center; max-width: 500px; margin: 0 auto; }
         .bomba-img { flex: 1; max-width: 400px; margin: 0 auto; position:relative; }
-        .bomba-img img { width: 100%; border-radius: 10px; border: 2px solid red; box-shadow: 0 0 20px red; }
+        .bomba-img img { width: 100%; border-radius: 10px; border: 2px solid rgb(212, 175, 55); box-shadow: 0 0 20px rgb(214, 167, 11); }
 
-        .bomba-title { font-family: var(--font-titulos); font-size: 2.5rem; color: #ff4d4d; margin: 0; text-transform: uppercase; animation: pulse 1s infinite; }
+        .bomba-title { font-family: var(--font-titulos); font-size: 2.5rem; color: rgb(212, 55, 55); margin: 0; text-transform: uppercase; animation: pulse 1s infinite; }
         .bomba-timer { font-family: 'Courier New', monospace; font-size: 3rem; font-weight: bold; color: #fff; margin: 20px 0; text-shadow: 0 0 10px red; }
         
         .bomba-nav {
             position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; box-sizing: border-box; pointer-events: none; z-index: 10;
         }
         .bomba-btn { 
-            pointer-events: auto; background: rgba(255,0,0,0.2); border: 1px solid red; color: white; padding: 10px; cursor: pointer; border-radius: 50%; font-size: 1.2rem;
+            pointer-events: auto; background: rgba(255,0,0,0.2); border: 1px solid rgb(212, 55, 55); color: white; padding: 10px; cursor: pointer; border-radius: 50%; font-size: 1.2rem;
         }
 
-        /* Mecha */
-        .fuse-wrapper { width: 100%; height: 10px; background: #330000; border-radius: 5px; margin: 20px 0; position: relative; overflow: visible; }
-        .fuse-bar { height: 100%; background: #ff4d4d; width: 100%; position: relative; transition: width 1s linear; border-radius: 5px; }
-        .fuse-spark { position: absolute; right: -10px; top: -15px; width: 30px; height: 30px; background: radial-gradient(circle, yellow, orange, transparent); border-radius: 50%; animation: spark-spin 0.2s infinite linear, spark-flicker 0.1s infinite alternate; box-shadow: 0 0 20px orange; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.8; text-shadow: 0 0 30px red; } 100% { opacity: 1; } }
-        @keyframes spark-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes spark-flicker { 0% { opacity: 0.8; scale: 1; } 100% { opacity: 1; scale: 1.2; } }
+        
 
         /* === NUEVA SECCIÓN: REDES SOCIALES === */
         #social-section {
@@ -201,7 +195,7 @@
         
         <div class="menu" id="nav-menu">
             <a onclick="irA('principal', this)" class="active">Principal</a>
-            <a onclick="irA('ofertas', this)" style="color:#ff4d4d; font-weight:bold;">🔥 Ofertas</a>
+            <a onclick="irA('ofertas', this)" style="color:#e80707; font-weight:bold;">Ofertas</a>
             <a onclick="irA('silver', this)">Silver Edition</a>
             <a onclick="irA('gold', this)">Gold Edition</a>
             <a onclick="irA('diamante', this)">Diamond Edition</a>
@@ -234,23 +228,23 @@
 
     <div id="categories-nav">
         <div class="cat-card" onclick="irA('ofertas', document.querySelectorAll('.menu a')[1])">
-            <span class="cat-icon">🔥</span>
+            
             <span class="cat-name">OFERTAS</span>
         </div>
         <div class="cat-card" onclick="irA('silver', document.querySelectorAll('.menu a')[2])">
-            <span class="cat-icon">⛓️</span>
+            
             <span class="cat-name">SILVER</span>
         </div>
         <div class="cat-card" onclick="irA('gold', document.querySelectorAll('.menu a')[3])">
-            <span class="cat-icon">⚜️</span>
+            
             <span class="cat-name">GOLD</span>
         </div>
         <div class="cat-card" onclick="irA('diamante', document.querySelectorAll('.menu a')[4])">
-            <span class="cat-icon">💎</span>
+            
             <span class="cat-name">DIAMANTE</span>
         </div>
         <div class="cat-card" onclick="irA('mevak', document.querySelectorAll('.menu a')[5])">
-            <span class="cat-icon">👑</span>
+            
             <span class="cat-name">MEVAK</span>
         </div>
     </div>
@@ -264,7 +258,7 @@
     </div>
 
     <div id="cart-counter" onclick="toggleCart()">
-        <span style="font-size:1.2rem">💎</span> <span id="cart-count" style="margin-left:5px; font-weight:bold; color:var(--accent-color)">0</span>
+        <span style="font-size:1.2rem">🛒</span> <span id="cart-count" style="margin-left:5px; font-weight:bold; color:var(--accent-color)">0</span>
     </div>
 
     <div id="cart-modal" class="modal-overlay" onclick="if(event.target.id=='cart-modal') this.style.display='none'">
@@ -310,6 +304,16 @@
         let currentSlide = 0;
         let banners = [];
         
+        // SISTEMA DE IMPUESTOS Y COMISIONES
+        // Se aplica automáticamente a todos los precios visualizados
+        const IMPUESTO = 1.095; // 9.5%
+
+        function applyTax(price) {
+            if(!price) return 0;
+            // Math.round para evitar decimales raros, manteniendo números enteros
+            return Math.round(price * IMPUESTO);
+        }
+
         let activeBombas = [];
         let currentBombaIndex = 0;
         let bombaTimerInterval = null;
@@ -371,17 +375,21 @@
             track.innerHTML = "";
             activeBombas.forEach((p, index) => {
                 const globalIdx = todosLosProductos.findIndex(item => item.id === p.id);
+                // Precios con Impuesto
+                const precioNormalImp = applyTax(p.precio);
+                const precioBombaImp = applyTax(p.precioBomba);
+
                 track.innerHTML += `
                     <div class="bomba-slide">
                         <div class="bomba-img">
                             <img src="${p.imagen}">
                         </div>
                         <div class="bomba-info">
-                            <h2 class="bomba-title">💣 OFERTA RELÁMPAGO 💣</h2>
+                            <h2 class="bomba-title">OFERTA POR TIEMPO LIMITADO</h2>
                             <h3 style="color:white; margin:10px 0; font-family:var(--font-titulos);">${p.nombre}</h3>
                             <div style="font-size:1.5rem; color:#ffcccc; margin-bottom:10px;">
-                                <span style="text-decoration:line-through; font-size:1rem;">$${p.precio}</span> 
-                                <span style="font-weight:bold; font-size:1.8rem;">$${p.precioBomba}</span>
+                                <span style="text-decoration:line-through; font-size:1rem;">$${precioNormalImp}</span> 
+                                <span style="font-weight:bold; font-size:1.8rem;">$${precioBombaImp}</span>
                             </div>
                             
                             <div class="bomba-timer" id="timer-${index}">00:00:00</div>
@@ -453,12 +461,10 @@
             if(elem) elem.classList.add('active');
             document.getElementById('nav-menu').classList.remove('show-mobile');
 
-            // Control de Visibilidad de Secciones Especiales
             const socialSec = document.getElementById('social-section');
             const catNav = document.getElementById('categories-nav');
             const carousel = document.getElementById('carousel-section');
 
-            // Refrescar Bombas
             initBombaSystem();
 
             if(seccion === 'principal') {
@@ -467,13 +473,11 @@
                 document.getElementById('subtitulo-seccion').innerText = "Explora todo nuestro universo";
                 renderGrid(todosLosProductos);
                 
-                // Mostrar secciones de HOME
                 if(banners.length > 0) carousel.style.display = 'block';
                 socialSec.style.display = 'flex';
                 catNav.style.display = 'grid';
             } 
             else {
-                // Ocultar secciones de HOME en subpáginas
                 carousel.style.display = 'none';
                 socialSec.style.display = 'none';
                 catNav.style.display = 'none';
@@ -507,17 +511,22 @@
                 const globalIdx = todosLosProductos.findIndex(item => item.id === p.id);
                 const isBombaActive = p.ofertaBomba && p.fechaFinOferta && new Date(p.fechaFinOferta) > new Date();
                 
+                // Aplicar Impuestos para Display
+                const finalPrice = applyTax(p.precio);
+                const finalOldPrice = applyTax(p.precioOriginal);
+                const finalBombaPrice = applyTax(p.precioBomba);
+
                 let displayPriceHtml = "";
                 let badge = "";
 
                 if (isBombaActive) {
-                    badge = `<div class="badge-offer">🔥 BOMBA</div>`;
-                    displayPriceHtml = `<span style="text-decoration:line-through; font-size:0.8rem; color:#666;">$${p.precio}</span> <span style="color:#d63031; font-weight:bold; font-size:1.2rem;">$${p.precioBomba}</span>`;
+                    badge = `<div class="badge-offer"> TIEMPO LIMITADO</div>`;
+                    displayPriceHtml = `<span style="text-decoration:line-through; font-size:0.8rem; color:#666;">$${finalPrice}</span> <span style="color:#d63031; font-weight:bold; font-size:1.2rem;">$${finalBombaPrice}</span>`;
                 } else if (p.precioOriginal > p.precio) {
                     badge = `<div class="badge-offer" style="background:var(--accent-color); color:black;">OFERTA</div>`;
-                    displayPriceHtml = `<span style="text-decoration:line-through; font-size:0.8rem; color:#666;">$${p.precioOriginal}</span> <span style="color:var(--text-color); font-weight:bold;">$${p.precio}</span>`;
+                    displayPriceHtml = `<span style="text-decoration:line-through; font-size:0.8rem; color:#666;">$${finalOldPrice}</span> <span style="color:var(--text-color); font-weight:bold;">$${finalPrice}</span>`;
                 } else {
-                    displayPriceHtml = `<span style="color:var(--text-color);">$${p.precio}</span>`;
+                    displayPriceHtml = `<span style="color:var(--text-color);">$${finalPrice}</span>`;
                 }
                 
                 cont.innerHTML += `
@@ -538,19 +547,24 @@
         window.verDetalle = function(idx) {
             const p = todosLosProductos[idx];
             const isBombaActive = p.ofertaBomba && p.fechaFinOferta && new Date(p.fechaFinOferta) > new Date();
-            const precioFinal = isBombaActive ? p.precioBomba : p.precio;
+            
+            // Calculo Precio Final con Impuesto para el Modal
+            const basePrice = isBombaActive ? p.precioBomba : p.precio;
+            const finalPrice = applyTax(basePrice);
 
             document.getElementById('detail-img').src = p.imagen;
             document.getElementById('detail-title').innerText = p.nombre;
             document.getElementById('detail-category').innerText = p.categoria;
-            document.getElementById('detail-price').innerText = "$" + precioFinal;
+            document.getElementById('detail-price').innerText = "$" + finalPrice;
             document.getElementById('detail-desc').innerText = p.descripcion || "Sin descripción";
-            document.getElementById('detail-btn').onclick = () => agregar(p, precioFinal);
+            
+            // Agregamos al carrito el precio YA con impuesto
+            document.getElementById('detail-btn').onclick = () => agregar(p, finalPrice);
             document.getElementById('detail-modal').style.display = 'flex';
         }
 
-        window.agregar = function(p, precioReal) {
-            const itemCarrito = { ...p, precio: precioReal };
+        window.agregar = function(p, precioFinal) {
+            const itemCarrito = { ...p, precio: precioFinal };
             carrito.push(itemCarrito);
             localStorage.setItem('carrito_mevak', JSON.stringify(carrito));
             updateCart();
@@ -584,14 +598,13 @@
             document.getElementById('cart-total').innerText = total;
         }
 
-        // INIT: Carga Principal por defecto
+        // INIT
         async function init() {
             try {
                 const snap = await getDocs(collection(db, "productos"));
                 todosLosProductos = [];
                 snap.forEach(d => todosLosProductos.push({id: d.id, ...d.data()}));
                 
-                // INICIAR EN PRINCIPAL
                 irA('principal', document.querySelectorAll('.menu a')[0]); 
                 
                 updateCart();
